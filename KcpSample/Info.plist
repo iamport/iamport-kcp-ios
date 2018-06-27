@@ -59,9 +59,9 @@
 		<string>citimobileapp</string>
 		<string>kakaotalk</string>
 		<string>payco</string>
-		<string>lpayapp</string>
-		<string>hanamopmoasign</string>
-		<string>wooripay</string>
+		<string>lpayapp</string> <!-- 롯데 L페이 -->
+		<string>hanamopmoasign</string> <!-- 하나카드 공인인증앱 -->
+		<string>wooripay</string> <!-- 우리페이 -->
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
