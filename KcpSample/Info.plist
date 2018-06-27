@@ -60,7 +60,8 @@
 		<string>kakaotalk</string>
 		<string>payco</string>
 		<string>lpayapp</string>
-        <string>hanamopmoasign</string>
+		<string>hanamopmoasign</string>
+		<string>wooripay</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
