@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pay document</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+</head>
+<body>
+    
+    <button onclick="request_pay()">결제하기</button>
+    
+    
+    <script type="text/javascript">
+        var IMP = window.IMP;
+        IMP.init("imp40289144");
+        
+        function request_pay() {
+            console.log('method called')
+            IMP.request_pay({
+                           pg: "kcp",
+                           pay_method: "card",
+                           merchant_uid: "ORD20180131-00000121", //중복 시 진행안됨
+                           name: "노르웨이 회전 의자",
+                           amount: 1000,
+                           buyer_email: "gildong@gmail.com",
+                           buyer_name: "홍길동",
+                           buyer_tel: "010-4242-4242",
+                           buyer_addr: "서울특별시 강남구 신사동",
+                           buyer_postcode: "01181",
+                           app_scheme: "iamporttest",
+                           m_redirect_url: "https://www.naver.com"
+                           }, function(rsp){
+                               if(rsp.success){
+                                    alert("성공");
+                               } else {
+                            console.log(rsp);
+                                    alert("실패");
+                               }
+                            });
+        }
+       
+    </script>
+ 
+</body>
+</html>
+
+

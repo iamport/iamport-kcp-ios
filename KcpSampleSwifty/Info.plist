@@ -2,18 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array/>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.siot.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
-	<string>APPL</string>
+	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
@@ -27,6 +29,7 @@
 			<string>com.siot.kcp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>iamporttest</string>
 				<string>iamportkcp</string>
 			</array>
 		</dict>
@@ -59,11 +62,11 @@
 		<string>citimobileapp</string>
 		<string>kakaotalk</string>
 		<string>payco</string>
-		<string>lpayapp</string> <!-- 롯데 L페이 -->
-		<string>hanamopmoasign</string> <!-- 하나카드 공인인증앱 -->
-		<string>wooripay</string> <!-- 우리페이 -->
-		<string>nhallonepayansimclick</string> <!-- NH 올원페이 -->
-		<string>hanawalletmembers</string> <!-- 하나카드(하나멤버스 월렛) -->
+		<string>lpayapp</string>
+		<string>hanamopmoasign</string>
+		<string>wooripay</string>
+		<string>nhallonepayansimclick</string>
+		<string>hanawalletmembers</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -72,6 +75,30 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
