@@ -135,6 +135,22 @@ extension ViewController: UIAlertViewDelegate {
         }
 
     }
+    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        
+        let alertController = UIAlertController(title: "test", message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: {
+            _ in completionHandler(false)
+        })
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: {
+            _ in completionHandler(true)
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+    }
     
 }
 
