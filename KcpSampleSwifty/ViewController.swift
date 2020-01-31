@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController ,WKUIDelegate {
     
     @IBOutlet weak var myWebView: WKWebView!
     
@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         
         
         self.myWebView.navigationDelegate = self
+        self.myWebView.uiDelegate = self
         
         //open in demo webpage
         //loadWebPage(url : "https://www.iamport.kr/demo")
@@ -120,6 +121,19 @@ extension ViewController: UIAlertViewDelegate {
         alert.addAction(okAction)
         alert.present(alert, animated: true, completion: nil)
         
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        
+        let alertController = UIAlertController(title: "test", message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "확인", style: .cancel, handler: {
+         _ in completionHandler()
+        })
+        alertController.addAction(cancelAction)
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true, completion: nil)
+        }
+
     }
     
 }
