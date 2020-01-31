@@ -26,9 +26,6 @@ class ViewController: UIViewController ,WKUIDelegate {
         
         super.viewDidLoad()
         
-        //fortest
-        
-        
         self.myWebView.navigationDelegate = self
         self.myWebView.uiDelegate = self
         
@@ -122,7 +119,7 @@ extension ViewController: UIAlertViewDelegate {
         alert.present(alert, animated: true, completion: nil)
         
     }
-    
+    //최종 등록이 완료되는 웹페이지에서 alert() confirm() 함수에 대한 처리
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
         
         let alertController = UIAlertController(title: "test", message: message, preferredStyle: .alert)
@@ -135,6 +132,7 @@ extension ViewController: UIAlertViewDelegate {
         }
 
     }
+    
     func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
         
         let alertController = UIAlertController(title: "test", message: message, preferredStyle: .alert)

@@ -49,10 +49,8 @@ extension URL {
        let queryItems = queryComponents?.queryItems
        guard let approval_key = queryItems?.filter({$0.name == "approval_key"}).first?.value else{ return }
       
-       //approval_key != nil
        print("approval_key is \(approval_key)")
       
-       //range = approval_key.count-4 ... approval_key.count
        let textStartIndex = approval_key.index(approval_key.endIndex, offsetBy: -4)
        let textEndIndex = approval_key.endIndex
       
