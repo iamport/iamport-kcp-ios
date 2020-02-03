@@ -14,6 +14,33 @@ class ViewController: UIViewController ,WKUIDelegate {
     
     @IBOutlet weak var myWebView: WKWebView!
     
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        // Native(HTML) -> WKWebView로 데이터를 전달하기 위함
+        let contentController = WKUserContentController()
+        contentController.add(self, name: "IamportTest")
+        
+        let userScript = WKUserScript(source: "initNative()", injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        contentController.addUserScript(userScript)
+        
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController = contentController
+        
+        self.myWebView.navigationDelegate = self
+        self.myWebView.uiDelegate = self
+        
+        //open in demo webpage
+        //loadWebPage(url : "https://www.iamport.kr/demo")
+        
+        //open in HTML source (무조건 존재!)
+        let myHTMLBundle = Bundle.main.url(forResource: "IamportTest", withExtension: "html")!
+        let myRequest = URLRequest(url: myHTMLBundle)
+        myWebView.load(myRequest)
+        
+    }
+    
     func loadWebPage(url: String) {
         
         let myUrl = URL(string: url)
@@ -22,21 +49,16 @@ class ViewController: UIViewController ,WKUIDelegate {
         
     }
     
-    override func viewDidLoad() {
+    
+}
+
+// MARK: - IAMPORT KCP transfer info in HTML TO WKVIEW
+
+extension ViewController: WKScriptMessageHandler{
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
-        super.viewDidLoad()
-        
-        self.myWebView.navigationDelegate = self
-        self.myWebView.uiDelegate = self
-        
-        //open in demo webpage
-        //loadWebPage(url : "https://www.iamport.kr/demo")
-        
-        //open in HTML source
-        let myHTMLBundle = Bundle.main.url(forResource: "IamportTest", withExtension: "html")!
-        let myRequest = URLRequest(url: myHTMLBundle)
-        myWebView.load(myRequest)
-        
+        //들어오는 data 구현부
     }
 }
 
