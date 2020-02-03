@@ -12,7 +12,7 @@ import WebKit
 
 class ViewController: UIViewController ,WKUIDelegate {
     
-    @IBOutlet weak var myWebView: WKWebView!
+    @IBOutlet var myWebView: WKWebView!
     
     override func viewDidLoad() {
         
@@ -39,6 +39,19 @@ class ViewController: UIViewController ,WKUIDelegate {
         let myRequest = URLRequest(url: myHTMLBundle)
         myWebView.load(myRequest)
         
+        //ios 13부터 ipad가 pc로서 동작하게 됨(user agent string), userAgent에 ipad를 추가
+        myWebView.evaluateJavaScript("navigator.userAgent") {
+            
+            [weak myWebView] (result, error) in
+            if let webView = myWebView, let userAgent = result as? String {
+                
+                webView.customUserAgent = userAgent + "iPad"
+        
+            }
+            
+        }
+    
+        
     }
     
     func loadWebPage(url: String) {
@@ -48,6 +61,7 @@ class ViewController: UIViewController ,WKUIDelegate {
         myWebView.load(myRequest)
         
     }
+    
     
 }
 
@@ -114,6 +128,7 @@ extension ViewController: WKNavigationDelegate {
         decisionHandler(
             navigationPolicyBasedOnUrlScheme())
     }
+    
     
 }
 
