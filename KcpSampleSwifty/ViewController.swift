@@ -39,7 +39,7 @@ class ViewController: UIViewController ,WKUIDelegate {
         let myRequest = URLRequest(url: myHTMLBundle)
         myWebView.load(myRequest)
         
-        //ios 13부터 ipad가 pc로서 동작하게 됨(user agent string), userAgent에 ipad를 추가
+        //ios 13부터 ipad가 pc로서 동작하게 됨(user agent string), userAgent에 ipad를 추가 ,추후 변경가능할듯
         myWebView.evaluateJavaScript("navigator.userAgent") {
             
             [weak myWebView] (result, error) in
