@@ -28,16 +28,25 @@
         m_redirect_url : <input type = "text" value = "https://www.naver.com" name = "m_redirect_url" onclick = this.value=""></br></br>
     </form>
     
-    <button onclick="request_pay()">결제하기</button>
+    <button onclick="request_pay()">결제하기</button><br>
+    <button onclick="callFunc()"> JSON전달하기</button>
     
     <script type="text/javascript">
         
+        //기본기능
         var IMP = window.IMP;
         IMP.init("imp40289144");
         
         function request_pay() {
-            IMP.request_pay(objectifyForm(myForm));
+            IMP.request_pay(objectifyForm(myForm)),function(rsp){
+                if(rsp.success){
+                    alert("성공");
+                } else {
+                    alert("실패");
+                }
+            };
         }
+    
         function objectifyForm(formArray) {
             var returnArray = {};
             for (var i = 0; i < formArray.length; i++){
@@ -45,6 +54,12 @@
             }
             return returnArray;
         }
+    
+        //입력받은 myForm의 값을 WKWebView로 전달하기 위함. 현재는 값 전달여부만 확인.
+        function callFunc() {
+            window.webkit.messageHandlers.iamportTest.postMessage({});
+        }
+    
        
     </script>
  

@@ -20,13 +20,13 @@ class ViewController: UIViewController ,WKUIDelegate {
         
         // Native(HTML) -> WKWebView로 데이터를 전달하기 위함
         let contentController = WKUserContentController()
-        contentController.add(self, name: "IamportTest")
-        
-        let userScript = WKUserScript(source: "initNative()", injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-        contentController.addUserScript(userScript)
+        contentController.add(self, name: "iamportTest")
         
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = contentController
+        
+        myWebView = WKWebView(frame: view.frame, configuration: configuration)
+        self.view.addSubview(myWebView)
         
         self.myWebView.navigationDelegate = self
         self.myWebView.uiDelegate = self
@@ -49,7 +49,6 @@ class ViewController: UIViewController ,WKUIDelegate {
         
     }
     
-    
 }
 
 // MARK: - IAMPORT KCP transfer info in HTML TO WKVIEW
@@ -57,8 +56,8 @@ class ViewController: UIViewController ,WKUIDelegate {
 extension ViewController: WKScriptMessageHandler{
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        
-        //들어오는 data 구현부
+        //script로부터 들어오는 data 구현부
+        print("구현해주세요")
     }
 }
 
