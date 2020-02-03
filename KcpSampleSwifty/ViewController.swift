@@ -14,6 +14,8 @@ class ViewController: UIViewController ,WKUIDelegate {
     
     @IBOutlet var myWebView: WKWebView!
     
+    var m_redirect_url : String = ""
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -70,8 +72,12 @@ class ViewController: UIViewController ,WKUIDelegate {
 extension ViewController: WKScriptMessageHandler{
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        //script로부터 들어오는 data 구현부
-        print("구현해주세요")
+        //java script로부터 들어오는 data 구현부, 입력한 m_redirect_url을 WKWebView의 전역변수로 넘겨준다.
+        guard message.name == "iamportTest" else{ return }
+        guard let dictionary: [String : String] = message.body as? Dictionary else { return }
+        if dictionary["m_redirect_url"] != nil {
+            m_redirect_url = dictionary["m_redirect_url"]!
+        }
     }
 }
 
@@ -117,6 +123,18 @@ extension ViewController: WKNavigationDelegate {
 
             print("webview에 요청된 url==> \(url.absoluteString)")
             
+            //m_redirect_url이 들어올 시 WKWebView 종료
+            if(url.absoluteString.hasPrefix(self.m_redirect_url)){
+                self.myWebView.stopLoading()
+                self.myWebView.removeFromSuperview()
+                self.myWebView.navigationDelegate = nil
+                self.myWebView = nil
+                
+                self.dismiss(animated: true, completion: nil)
+                
+                let returnValue = url.absoluteString
+                //이걸 m_direct_url에 보내야함
+            }
             //기타(금결원 실시간계좌이체 등) http scheme이 들어왔을 경우 URL을 Open하기 위함
             if !url.isHttpOrHttps {
                 UIApplication.shared.open(request.url!, options: [:], completionHandler: nil)

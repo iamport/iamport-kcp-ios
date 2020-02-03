@@ -55,10 +55,14 @@
             return returnArray;
         }
     
-        //입력받은 myForm의 값을 WKWebView로 전달하기 위함. 현재는 값 전달여부만 확인.
+        //입력받은 myForm의 값을 WKWebView로 전달하기 위함.
         function callFunc() {
-            window.webkit.messageHandlers.iamportTest.postMessage({});
+            window.webkit.messageHandlers.iamportTest.postMessage(objectifyForm(myForm));
         }
+    
+        
+    
+    
     
        
     </script>
