@@ -3,44 +3,47 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Pay document</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 </head>
 <body>
     
+    <p> 결제 테스트 </p>
+    
+    <form name= "myForm">
+        PG : <input type = "text" value = "kcp" name = "pg" onclick = this.value=""><br>
+        Payment Method : <input type = "text" value = "card" name = "pay_method" onclick = this.value=""></br>
+        merchant_uid : <input type = "text" value = "ORD20202020-00000122" name = "merchant_uid" onclick = this.value=""></br>
+        name : <input type = "text" value = "노르웨이 회전 의자" name = "name" onclick = this.value=""></br>
+        amount : <input type = "text" value = "1000" name = "amount" onclick = this.value=""></br>
+        buyer_email : <input type = "text" value = "gildong@gmail.com" name = "email" onclick = this.value=""></br>
+        buyer_name : <input type = "text" value = "홍길동" name = "buyer_name" onclick = this.value=""></br>
+        buyer_tel : <input type = "text" value = "010-2020-2020" name = "buyer_tel" onclick = this.value=""></br>
+        buyer_addr : <input type = "text" value = "서울특별시 강남구 신사동" name = "buyer_addr" onclick = this.value=""></br>
+        buyer_postcode : <input type = "text" value = "01181" name = "buyer_postcode" onclick = this.value=""></br>
+        app_scheme : <input type = "text" value = "iamporttest" name = "app_scheme" onclick = this.value=""></br>
+        m_redirect_url : <input type = "text" value = "https://www.naver.com" name = "m_redirect_url" onclick = this.value=""></br></br>
+    </form>
+    
     <button onclick="request_pay()">결제하기</button>
     
-    
     <script type="text/javascript">
-        
         
         var IMP = window.IMP;
         IMP.init("imp40289144");
         
         function request_pay() {
-            console.log('method called')
-            IMP.request_pay({
-                           pg: "kcp",
-                           pay_method: "card",
-                           merchant_uid: "ORD20180131-00000122", //중복 시 진행안됨
-                           name: "노르웨이 회전 의자",
-                           amount: 1000,
-                           buyer_email: "gildong@gmail.com",
-                           buyer_name: "홍길동",
-                           buyer_tel: "010-4242-4242",
-                           buyer_addr: "서울특별시 강남구 신사동",
-                           buyer_postcode: "01181",
-                           app_scheme: "iamporttest",
-                           m_redirect_url: "https://www.naver.com"
-                           }, function(rsp){
-                               if(rsp.success){
-                                    alert("성공");
-                               } else {
-                            console.log(rsp);
-                                    alert("실패");
-                               }
-                            });
+            IMP.request_pay(objectifyForm(myForm));
+        }
+        function objectifyForm(formArray) {
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++){
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
         }
        
     </script>
