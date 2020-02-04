@@ -29,12 +29,13 @@ extension URL {
         return bAppStoreURL || bAppStoreURL2
     }
     
+    
     func checkReturnFromIsp(_ url : URL) -> Void {
   
-       guard let scheme = url.scheme else{
+       guard let scheme = url.scheme else {
            return
        }
-       guard scheme.hasPrefix(MY_APP_SCHEME) else{
+       guard scheme.hasPrefix(MY_APP_SCHEME) else {
            return
        }
        if url.query == nil {

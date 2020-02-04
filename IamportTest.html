@@ -34,9 +34,8 @@
     
     <script type="text/javascript">
         
-        //기본기능
-        var IMP = window.IMP;
-        IMP.init("imp40289144");
+        var IMP = window.IMP; //자세한 사항은 https://docs.iamport.kr/implementation/payment 확인해주세요.
+        IMP.init("imp40289144"); // Iamport dashboard의 고유 가맹점 식별코드입니다.
         
         function request_pay() {
             
@@ -50,7 +49,7 @@
                 }
             };
         }
-    
+        //form에서 입력받은 값을 JSON객체로 return합니다.
         function objectifyForm(formArray) {
             var returnArray = {};
             for (var i = 0; i < formArray.length; i++){
