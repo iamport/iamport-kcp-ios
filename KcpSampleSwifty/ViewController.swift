@@ -46,14 +46,11 @@ class ViewController: UIViewController ,WKUIDelegate {
             
             [weak myWebView] (result, error) in
             if let webView = myWebView, let userAgent = result as? String {
-                
                 webView.customUserAgent = userAgent + "iPad"
-        
             }
             
         }
-    
-        
+
     }
     
     func loadWebPage(url: String) {
@@ -73,7 +70,9 @@ extension ViewController: WKScriptMessageHandler{
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         //java script로부터 들어오는 data 구현부, 입력한 m_redirect_url을 WKWebView의 전역변수로 넘겨준다.
+        
         guard message.name == "iamportTest" else{ return }
+        
         guard let dictionary: [String : String] = message.body as? Dictionary else { return }
         if dictionary["m_redirect_url"] != nil {
             m_redirect_url = dictionary["m_redirect_url"]!
@@ -90,13 +89,42 @@ extension ViewController: WKNavigationDelegate {
         let request = navigationAction.request
         guard let url = request.url else { return }
         
+        
         // decisionHandler 중복호출을 피하기위해 closure 작성하여 policy를 도출
         let navigationPolicyBasedOnUrlScheme = { () -> WKNavigationActionPolicy in
+            
             //HTML로 실행했을 시 file:// scheme에 대한 권한부여 위함
-            if url.scheme == "file" {
+            if url.scheme == "file"{
+                
                 print("webview에 요청된 url==> \(url.absoluteString)")
                 return .allow
+                
             }
+
+            if url.absoluteString.hasPrefix(self.m_redirect_url) && self.m_redirect_url != ""{
+                
+                print("webview에 요청된 url==> \(url.absoluteString)")
+                
+                self.myWebView.stopLoading()
+                self.myWebView.removeFromSuperview()
+                self.myWebView.navigationDelegate = nil
+                self.myWebView = nil
+                
+                self.dismiss(animated: true, completion: nil)
+                
+                //값이 필요하면 view controller의 전역으로 빼면 됨.
+                let queryComponents = URLComponents(string: url.absoluteString)
+                let queryItems = queryComponents?.queryItems
+                
+                for item in queryItems! {
+                    print("[\(item.name) : \(item.value!)]")
+                }
+                //post?
+                UIApplication.shared.open(request.url!, options: [:], completionHandler: nil)
+                
+                return .cancel
+            }
+            
             //APP STORE URL 경우 openURL 함수를 통해 앱스토어 어플을 활성화
             if url.isAppStoreUrl {
                 UIApplication.shared.open(request.url!, options: [:], completionHandler: nil) //?
@@ -123,18 +151,6 @@ extension ViewController: WKNavigationDelegate {
 
             print("webview에 요청된 url==> \(url.absoluteString)")
             
-            //m_redirect_url이 들어올 시 WKWebView 종료
-            if(url.absoluteString.hasPrefix(self.m_redirect_url)){
-                self.myWebView.stopLoading()
-                self.myWebView.removeFromSuperview()
-                self.myWebView.navigationDelegate = nil
-                self.myWebView = nil
-                
-                self.dismiss(animated: true, completion: nil)
-                
-                let returnValue = url.absoluteString
-                //이걸 m_direct_url에 보내야함
-            }
             //기타(금결원 실시간계좌이체 등) http scheme이 들어왔을 경우 URL을 Open하기 위함
             if !url.isHttpOrHttps {
                 UIApplication.shared.open(request.url!, options: [:], completionHandler: nil)

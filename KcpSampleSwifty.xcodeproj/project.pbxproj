@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B974735023E9443E00DFF87D /* jquery-1.12.4.min.js in Resources */ = {isa = PBXBuildFile; fileRef = B974734F23E9443E00DFF87D /* jquery-1.12.4.min.js */; };
 		B9D60D5123CDBBA40093A693 /* testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D60D5023CDBBA40093A693 /* testUITests.swift */; };
 		B9DCC96B23C46BA400769D8A /* AppDelegate+IamportKcp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DCC96A23C46BA400769D8A /* AppDelegate+IamportKcp.swift */; };
 		B9F5EF1623C30FBD00783C3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F5EF1523C30FBD00783C3D /* AppDelegate.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B974734F23E9443E00DFF87D /* jquery-1.12.4.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.12.4.min.js"; sourceTree = "<group>"; };
 		B9D60D5023CDBBA40093A693 /* testUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testUITests.swift; sourceTree = "<group>"; };
 		B9DCC96A23C46BA400769D8A /* AppDelegate+IamportKcp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+IamportKcp.swift"; sourceTree = "<group>"; };
 		B9F5EF1223C30FBD00783C3D /* KcpSampleSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KcpSampleSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 				B9F5EF1723C30FBD00783C3D /* SceneDelegate.swift */,
 				B9FD011023D7D7C0009CB868 /* SceneDelegate+IamportKcp.swift */,
 				B9F5EF1923C30FBD00783C3D /* ViewController.swift */,
+				B974734F23E9443E00DFF87D /* jquery-1.12.4.min.js */,
 				B9FFA51E23D6B74100A92F50 /* IamportTest.html */,
 				B9F5EF1B23C30FBD00783C3D /* Main.storyboard */,
 				B9F5EF1E23C30FBF00783C3D /* Assets.xcassets */,
@@ -253,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9F5EF2223C30FBF00783C3D /* LaunchScreen.storyboard in Resources */,
+				B974735023E9443E00DFF87D /* jquery-1.12.4.min.js in Resources */,
 				B9F5EF1F23C30FBF00783C3D /* Assets.xcassets in Resources */,
 				B9F5EF1D23C30FBD00783C3D /* Main.storyboard in Resources */,
 				B9FFA51F23D6B74100A92F50 /* IamportTest.html in Resources */,

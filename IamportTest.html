@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Pay document</title>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <script type="text/javascript" src="jquery-1.12.4.min.js" ></script>
     <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 </head>
 <body>
@@ -14,9 +14,10 @@
     <p> 결제 테스트 </p>
     
     <form name= "myForm">
+        
         PG : <input type = "text" value = "kcp" name = "pg" onclick = this.value=""><br>
         Payment Method : <input type = "text" value = "card" name = "pay_method" onclick = this.value=""></br>
-        merchant_uid : <input type = "text" value = "ORD20202020-00000122" name = "merchant_uid" onclick = this.value=""></br>
+        merchant_uid : <input type = "text" value = "ORD20202020-00000125" name = "merchant_uid" onclick = this.value=""></br>
         name : <input type = "text" value = "노르웨이 회전 의자" name = "name" onclick = this.value=""></br>
         amount : <input type = "text" value = "1000" name = "amount" onclick = this.value=""></br>
         buyer_email : <input type = "text" value = "gildong@gmail.com" name = "email" onclick = this.value=""></br>
@@ -25,11 +26,11 @@
         buyer_addr : <input type = "text" value = "서울특별시 강남구 신사동" name = "buyer_addr" onclick = this.value=""></br>
         buyer_postcode : <input type = "text" value = "01181" name = "buyer_postcode" onclick = this.value=""></br>
         app_scheme : <input type = "text" value = "iamporttest" name = "app_scheme" onclick = this.value=""></br>
-        m_redirect_url : <input type = "text" value = "https://www.naver.com" name = "m_redirect_url" onclick = this.value=""></br></br>
+        m_redirect_url : <input type = "text" value = "https://www.naver.com/" name = "m_redirect_url" onclick = this.value=""></br></br>
+            
     </form>
     
     <button onclick="request_pay()">결제하기</button><br>
-    <button onclick="callFunc()"> JSON전달하기</button>
     
     <script type="text/javascript">
         
@@ -38,6 +39,9 @@
         IMP.init("imp40289144");
         
         function request_pay() {
+            
+            callFunc();
+            
             IMP.request_pay(objectifyForm(myForm)),function(rsp){
                 if(rsp.success){
                     alert("성공");
@@ -60,11 +64,6 @@
             window.webkit.messageHandlers.iamportTest.postMessage(objectifyForm(myForm));
         }
     
-        
-    
-    
-    
-       
     </script>
  
 </body>
