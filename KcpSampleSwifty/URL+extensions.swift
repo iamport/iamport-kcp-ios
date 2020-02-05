@@ -8,8 +8,6 @@
 
 import UIKit
 
-    let MY_APP_SCHEME = "iamporttest"
-
 extension URL {
     
     var isHttpOrHttps: Bool {
