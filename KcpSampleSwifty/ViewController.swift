@@ -73,6 +73,7 @@ class ViewController: UIViewController ,WKUIDelegate {
     
     
 }
+// MARK: - Dictionary 형식을 JSON형식으로 변환하기 위한 Extension
 
 extension Dictionary {
     
@@ -85,7 +86,7 @@ extension Dictionary {
     }
 }
 
-// MARK: - IAMPORT KCP HTML TEXT Input에서 WKWebView로 값을 전달하기 위한 Message Handler
+// MARK: - IAMPORT KCP HTML Form 입력값을 WKWebView로 값을 전달하기 위한 Message Handler
 
 extension ViewController: WKScriptMessageHandler{
     
