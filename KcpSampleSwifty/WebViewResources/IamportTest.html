@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pay document</title>
+    <script type="text/javascript" src="jquery-1.12.4.min.js" ></script>
+    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+</head>
+<body>
+    
+    <p> 결제 테스트 </p>
+    
+    <form name= "myForm">
+        
+        PG : <input type = "text" value = "kcp" name = "pg" onclick = this.value=""><br>
+        Payment Method : <input type = "text" value = "card" name = "pay_method" onclick = this.value=""></br>
+        merchant_uid : <input type = "text" value = "ORD20202020-00000126" name = "merchant_uid" onclick = this.value=""></br>
+        name : <input type = "text" value = "노르웨이 회전 의자" name = "name" onclick = this.value=""></br>
+        amount : <input type = "text" value = "1000" name = "amount" onclick = this.value=""></br>
+        buyer_email : <input type = "text" value = "gildong@gmail.com" name = "email" onclick = this.value=""></br>
+        buyer_name : <input type = "text" value = "홍길동" name = "buyer_name" onclick = this.value=""></br>
+        buyer_tel : <input type = "text" value = "010-2020-2020" name = "buyer_tel" onclick = this.value=""></br>
+        buyer_addr : <input type = "text" value = "서울특별시 강남구 신사동" name = "buyer_addr" onclick = this.value=""></br>
+        buyer_postcode : <input type = "text" value = "01181" name = "buyer_postcode" onclick = this.value=""></br>
+        app_scheme : <input type = "text" value = "iamporttest" name = "app_scheme" onclick = this.value=""></br>
+        m_redirect_url : <input type = "text" value = "https://www.naver.com/" name = "m_redirect_url" onclick = this.value=""></br></br>
+            
+    </form>
+    
+    <button onclick="request_pay()">결제하기</button><br>
+    
+    <script type="text/javascript">
+        
+        var IMP = window.IMP; //자세한 사항은 https://docs.iamport.kr/implementation/payment 확인해주세요.
+        IMP.init("imp40289144"); // Iamport dashboard의 고유 가맹점 식별코드입니다.
+        
+        function request_pay() {
+            
+            callFunc();
+            
+            IMP.request_pay(objectifyForm(myForm)),function(rsp){
+                if(rsp.success){
+                    alert("성공");
+                } else {
+                    alert("실패");
+                }
+            };
+        }
+        //form에서 입력받은 값을 JSON객체로 return합니다.
+        function objectifyForm(formArray) {
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++){
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
+        }
+    
+        //입력받은 myForm의 값을 WKWebView로 전달하기 위함.
+        function callFunc() {
+            window.webkit.messageHandlers.iamportTest.postMessage(objectifyForm(myForm));
+        }
+    
+    </script>
+ 
+</body>
+</html>
+
+
