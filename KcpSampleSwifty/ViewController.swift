@@ -23,7 +23,8 @@ class ViewController: UIViewController ,WKUIDelegate {
     //[merchant_uid: ORD12341234-12341234]
     //[imp_success : true/false]
     //[errer_msg : error!!]
-    var returnFromPaymentEnd : [URLQueryItem] = [URLQueryItem(name: "",value: "")]
+    var returnFromPaymentEndJSON : String? = ""
+    
     
     override func viewDidLoad() {
         
@@ -71,6 +72,17 @@ class ViewController: UIViewController ,WKUIDelegate {
     }
     
     
+}
+
+extension Dictionary {
+    
+    var jsonStringRepresentation: String? {
+        guard let theJSONData = try? JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted]) else {
+            return nil
+        }
+
+        return String(data: theJSONData, encoding: .utf8)
+    }
 }
 
 // MARK: - IAMPORT KCP HTML TEXT Input에서 WKWebView로 값을 전달하기 위한 Message Handler
@@ -126,12 +138,17 @@ extension ViewController: WKNavigationDelegate {
                 let queryComponents = URLComponents(string: url.absoluteString)
                 let queryItems = queryComponents?.queryItems
                 
-                self.returnFromPaymentEnd = queryItems!
+                //JSON 추출
+                var messageDictionary = [String: Any]()
                 
-                //Query출력 디버그용
-                for item in self.returnFromPaymentEnd {
-                    print("[\(item.name) : \(item.value!)]")
+                for item in queryItems! {
+                    
+                    messageDictionary[item.name] = item.value
                 }
+                
+                self.returnFromPaymentEndJSON = messageDictionary.jsonStringRepresentation
+
+                print(self.returnFromPaymentEndJSON as Any)
                 
                 UIApplication.shared.open(request.url!, options: [:], completionHandler: nil)
                 
