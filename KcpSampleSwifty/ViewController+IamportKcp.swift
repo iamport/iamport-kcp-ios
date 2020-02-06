@@ -92,7 +92,7 @@ extension ViewController: WKNavigationDelegate {
     func navigationPolicyBasedOnUrlScheme(url: URL) -> WKNavigationActionPolicy {
         
         //HTML로 실행했을 시 실행할 파일 URL Scheme(file:// )에 대한 권한부여
-        if url.scheme == "file" {
+        if url.isFileURL {
             
             print("webview에 요청된 url==> \(url.absoluteString)")
             return .allow
@@ -111,21 +111,7 @@ extension ViewController: WKNavigationDelegate {
             
             self.dismiss(animated: true, completion: nil)
             
-            //Query값이 필요하면 ViewController의 전역으로 빼면 됨.
-            let queryComponents = URLComponents(string: url.absoluteString)
-            let queryItems = queryComponents?.queryItems
-            
-            //JSON 추출
-            var messageDictionary = [String: Any]()
-            
-            for item in queryItems! {
-                
-                messageDictionary[item.name] = item.value
-            }
-            
-            self.returnFromPaymentEndJSON = messageDictionary.jsonStringRepresentation
-
-            print(self.returnFromPaymentEndJSON as Any)
+            returnFromPaymentEndJSON = url.makeJSONFromUrlQuery
             
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             
@@ -270,18 +256,7 @@ extension URL {
 }
 
 
-// MARK: - Dictionary 형식을 JSON형식으로 변환하기 위한 Extension
 
-extension Dictionary {
-    
-    var jsonStringRepresentation: String? {
-        guard let theJSONData = try? JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted]) else {
-            return nil
-        }
-
-        return String(data: theJSONData, encoding: .utf8)
-    }
-}
 
 
 
