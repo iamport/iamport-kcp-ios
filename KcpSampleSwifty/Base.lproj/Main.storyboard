@@ -10,13 +10,13 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="KcpSampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhZ-uf-1zg">
-                                <rect key="frame" x="20" y="44" width="374" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -26,15 +26,15 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="yhZ-uf-1zg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Cmw-ex-iU0"/>
-                            <constraint firstItem="yhZ-uf-1zg" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Vjn-rP-lqt"/>
-                            <constraint firstItem="yhZ-uf-1zg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="WLS-7Y-z9U"/>
-                            <constraint firstItem="yhZ-uf-1zg" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="abD-iB-Tm4"/>
+                            <constraint firstItem="yhZ-uf-1zg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="CUh-Wq-hD6"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="yhZ-uf-1zg" secondAttribute="bottom" constant="-34" id="OKq-ig-HoB"/>
+                            <constraint firstItem="yhZ-uf-1zg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aaD-cx-BEL"/>
+                            <constraint firstItem="yhZ-uf-1zg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pJF-zu-WUh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="myWebView" destination="yhZ-uf-1zg" id="tQw-Ie-xm1"/>
+                        <outlet property="webView" destination="yhZ-uf-1zg" id="tQw-Ie-xm1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
