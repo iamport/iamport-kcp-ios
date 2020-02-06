@@ -17,14 +17,6 @@ class ViewController: UIViewController {
     //HTML로 부터온 m_redirect_url
     var mRedirectUrlValue : String = ""
 
-    //결제 완료 후 return되는 정보가 저장됩니다.
-    //item.name : item.value
-    //[imp_uid : imp_12341234]
-    //[merchant_uid: ORD12341234-12341234]
-    //[imp_success : true/false]
-    //[errer_msg : error!!]
-    var returnFromPaymentEndJSON : String? = ""
-    
     
     override func viewDidLoad() {
         
@@ -33,7 +25,9 @@ class ViewController: UIViewController {
         setupConfirmationMessageHandler()
         loadTestHtml()
         overrideUserAgent()
+        
     }
+    
 
 }
 

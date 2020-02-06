@@ -22,31 +22,5 @@ extension URL {
 
         return bAppStoreURL || bAppStoreURL2
     }
-    
-    var makeJSONFromUrlQuery : String? {
-        let queryComponents = URLComponents(string: self.absoluteString)
-        let queryItems = queryComponents?.queryItems
-        
-        //Dictianary변환
-        var messageDictionary = [String: Any]()
-        
-        for item in queryItems! {
-            messageDictionary[item.name] = item.value
-        }
-        
-        return messageDictionary.jsonStringRepresentation
-    }
 }
 
-// MARK: - Dictionary 형식을 JSON형식으로 변환하기 위한 Extension
-
-extension Dictionary {
-    
-    var jsonStringRepresentation: String? {
-        guard let theJSONData = try? JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted]) else {
-            return nil
-        }
-
-        return String(data: theJSONData, encoding: .utf8)
-    }
-}

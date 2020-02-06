@@ -111,8 +111,7 @@ extension ViewController: WKNavigationDelegate {
             
             self.dismiss(animated: true, completion: nil)
             
-            returnFromPaymentEndJSON = url.makeJSONFromUrlQuery
-            
+            //m_redirect_url로 Open
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             
             return .cancel
