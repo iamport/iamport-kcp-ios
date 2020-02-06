@@ -1,5 +1,5 @@
 //
-//  ViewController+IamportKcp.swift
+//  KCPMainViewController+IamportKcp.swift
 //  KcpSampleSwift
 //
 //  Created by Andy Park on 2020/02/05.
@@ -10,7 +10,7 @@ import Foundation
 import WebKit
 
 // MARK: - IAMPORT KCP Preparation
-extension ViewController {
+extension KCPMainViewController {
 
     // confirmation이란? m_redirect_url을 비교 후 WKWebView가 종료됨을 뜻한다.
     func setupConfirmationMessageHandler() {
@@ -33,7 +33,7 @@ extension ViewController {
         //loadWebPage(url : "https://www.iamport.kr/demo")
         
         //Bundle의 html파일 열기
-        let htmlResourceUrl = Bundle.main.url(forResource: "IamportTest", withExtension: "html")!
+        let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
         let myRequest = URLRequest(url: htmlResourceUrl)  // RENAME
         self.webView.load(myRequest)
     }
@@ -53,15 +53,15 @@ extension ViewController {
     func loadWebPage(url: String) {
         
         let myUrl = URL(string: url)
-        let myRequest = URLRequest(url: myUrl!)
-        self.webView.load(myRequest)
+        let request = URLRequest(url: myUrl!)
+        self.webView.load(request)
     }
     
 }
 
 // MARK: - IAMPORT KCP HTML Form 입력값을 WKWebView로 값을 전달하기 위한 Message Handler
 
-extension ViewController: WKScriptMessageHandler {
+extension KCPMainViewController: WKScriptMessageHandler {
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         //java script로부터 들어오는 data 구현부
@@ -78,7 +78,7 @@ extension ViewController: WKScriptMessageHandler {
 
 // MARK: - IAMPORT KCP ISP체크와 WKWebView에 들어오는 URL Request를 처리
 
-extension ViewController: WKNavigationDelegate {
+extension KCPMainViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
@@ -150,7 +150,7 @@ extension ViewController: WKNavigationDelegate {
 
 // MARK: - IAMPORT KCP ISP 앱 존재 여부 확인 후 미설치시 앱스토어를 열어줍니다.
 
-extension ViewController {
+extension KCPMainViewController {
 
     func showAlertViewWithEvent(_ msg : String, tagNum tag : Int) {
         
@@ -174,7 +174,7 @@ extension ViewController {
 }
 
 // MARK: - IAMPORT KCP 최종 등록 완료 웹페이지, 결제 오류 페이지에서 alert(), confilm() 함수에 대한 처리
-extension ViewController: WKUIDelegate {
+extension KCPMainViewController: WKUIDelegate {
     
     //최종 등록이 완료되는 웹페이지에서 alert() confirm() 함수에 대한 처리
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
