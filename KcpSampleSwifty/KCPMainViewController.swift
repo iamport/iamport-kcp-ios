@@ -24,14 +24,20 @@ class KCPMainViewController: UIViewController {
         
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(loadFirstPage(_:)), name: Notification.Name("isOver"), object: nil)
+        
         setupConfirmationMessageHandler()
         loadTestHtml()
         overrideUserAgent()
         
     }
     
-
+    @objc func loadFirstPage(_ notification: Notification){
+        loadTestHtml()
+    }
 }
+
+
 
 
 

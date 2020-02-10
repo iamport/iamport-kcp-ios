@@ -16,5 +16,7 @@ extension SceneDelegate {
         guard let url = URLContexts.first?.url else{ return }
         url.checkReturnFromIsp(url)
         
+        NotificationCenter.default.post(name: Notification.Name("isOver"), object: nil)
+        
     }
 }

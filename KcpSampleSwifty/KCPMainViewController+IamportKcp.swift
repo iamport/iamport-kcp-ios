@@ -104,15 +104,16 @@ extension KCPMainViewController: WKNavigationDelegate {
             
             print("webview에 요청된 url==> \(url.absoluteString)")
             
-            self.webView.stopLoading()
-            self.webView.removeFromSuperview()
-            self.webView.navigationDelegate = nil
-            self.webView = nil
+            let queryComponents = URLComponents(string: url.absoluteString)
+            let queryItems = queryComponents?.queryItems
             
-            self.dismiss(animated: true, completion: nil)
+            for item in queryItems! {
+                print("[\(item.name) : \(item.value ?? "")]")
+            }
             
-            //m_redirect_url로 Open
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            
+            
+            loadWebPage(url: "iamporttest://")
             
             return .cancel
         }
@@ -143,6 +144,7 @@ extension KCPMainViewController: WKNavigationDelegate {
             return .cancel
         }
         
+        print("webview에 요청된 url==> \(url.absoluteString)")
         return .allow
     }
     
