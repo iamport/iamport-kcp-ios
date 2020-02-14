@@ -27,18 +27,24 @@ extension KCPMainViewController {
     
     func loadTestHtml(_ yourHTMLName: String) {
         
-        
-        //데모 웹페이지로 열기
-        //loadWebPage(url : "https://www.iamport.kr/demo")
-        
-//        //Bundle의 html파일 열기
-//        let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
-//        let myRequest = URLRequest(url: htmlResourceUrl)  // RENAME
-//        self.webView.load(myRequest)
-        
-        
+        let inputFromSwift = "request_pay(\(listFromInputPage.jsonStringRepresentation!))"
 
-    
+        let config = WKWebViewConfiguration()
+        let userScript = WKUserScript(source: inputFromSwift, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        let contentController = WKUserContentController()
+        contentController.addUserScript(userScript)
+        config.userContentController = contentController
+        
+        webView = WKWebView(frame: .zero, configuration: config)
+        view = webView
+
+        self.webView.navigationDelegate = self
+        self.webView.uiDelegate = self
+
+        let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
+        let myRequest = URLRequest(url: htmlResourceUrl)  // RENAME
+        self.webView.load(myRequest)
+        
     }
     
     func overrideUserAgent() {
@@ -61,16 +67,6 @@ extension KCPMainViewController {
     }
     
 }
-extension KCPMainViewController : SendDataDelegate {
-    func sendData(data: [String : Any]) {
-        
-        print(data)
-        
-        tmp = data
-    }
-
-}
-
 extension Dictionary {
     var jsonStringRepresentation: String? {
         guard let theJSONData = try? JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted]) else {
@@ -89,13 +85,6 @@ extension KCPMainViewController: WKScriptMessageHandler {
         //java script로부터 들어오는 data 구현부
         //HTML파일에서 입력한 m_redirect_url을 WKWebView의 전역변수로 넘겨준다.
         //m_redirect_url외의 값도 받아올 수 있음
-        
-        let contentController = WKUserContentController()
-        let config = WKWebViewConfiguration()
-        
-        contentController.add(self, name: "")
-
-    
     }
 }
 

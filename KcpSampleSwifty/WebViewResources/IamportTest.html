@@ -15,12 +15,20 @@
         IMP.init("imp40289144"); // Iamport dashboard의 고유 가맹점 식별코드입니다.
         
         function request_pay(json) {
-            alert(json);
             IMP.request_pay(json),function(rsp){};
         }
-    function test(tt) {
-        alert("tt");
-    }
+        
+        function objectifyForm(formArray) {
+            var returnArray = {};
+            for (var i = 0; i < formArray.length; i++){
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
+        }
+    
+        function send_result(){
+            window.webkit.messageHandlers.iamportTest.postMessage(objectifyForm(myForm));
+        }
 
     </script>
  

@@ -9,15 +9,9 @@
 import UIKit
 
 
-protocol SendDataDelegate {
-    func sendData(data: [String: Any])
-}
-
-
 class InitViewController : UIViewController  {
-
-    var delegate : SendDataDelegate?
     
+    //입력받아야됨 TODO
     let list : [String : Any] =
         [
             "pg" : "kcp",
@@ -32,13 +26,19 @@ class InitViewController : UIViewController  {
             "buyer_postcode" : "01181",
             "app_scheme" : "iamporttest",
             "m_redirect_url" : "https://www.naver.com/"
-            
     ]
     
     @IBAction func sendJSON(_ sender: UIButton) {
-        delegate?.sendData(data: list)
-        print(list)
-        dismiss(animated: true, completion: nil)
-        self.performSegue(withIdentifier: "ToWebView", sender: self)
+        //dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: "ToWebView", sender: self)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToWebView" {
+            let toKCPMain = segue.destination as! KCPMainViewController
+            toKCPMain.listFromInputPage = list
+        }
+    }
+    
 }
+
