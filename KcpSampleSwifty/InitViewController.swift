@@ -37,6 +37,8 @@ class InitViewController : UIViewController  {
     
     @IBAction func sendJSON(_ sender: UIButton) {
         delegate?.sendData(data: list)
+        print(list)
         dismiss(animated: true, completion: nil)
+        self.performSegue(withIdentifier: "ToWebView", sender: self)
     }
 }

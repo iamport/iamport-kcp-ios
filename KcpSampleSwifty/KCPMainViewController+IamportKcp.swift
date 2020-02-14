@@ -25,17 +25,20 @@ extension KCPMainViewController {
         self.view.addSubview(self.webView)
     }
     
-    func loadTestHtml() {
-        self.webView.navigationDelegate = self
-        self.webView.uiDelegate = self
+    func loadTestHtml(_ yourHTMLName: String) {
+        
         
         //데모 웹페이지로 열기
         //loadWebPage(url : "https://www.iamport.kr/demo")
         
-        //Bundle의 html파일 열기
-        let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
-        let myRequest = URLRequest(url: htmlResourceUrl)  // RENAME
-        self.webView.load(myRequest)
+//        //Bundle의 html파일 열기
+//        let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
+//        let myRequest = URLRequest(url: htmlResourceUrl)  // RENAME
+//        self.webView.load(myRequest)
+        
+        
+
+    
     }
     
     func overrideUserAgent() {
@@ -58,6 +61,25 @@ extension KCPMainViewController {
     }
     
 }
+extension KCPMainViewController : SendDataDelegate {
+    func sendData(data: [String : Any]) {
+        
+        print(data)
+        
+        tmp = data
+    }
+
+}
+
+extension Dictionary {
+    var jsonStringRepresentation: String? {
+        guard let theJSONData = try? JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted]) else {
+            return nil
+        }
+
+        return String(data: theJSONData, encoding: .utf8)
+    }
+}
 
 // MARK: - IAMPORT KCP HTML Form 입력값을 WKWebView로 값을 전달하기 위한 Message Handler
 
@@ -67,12 +89,13 @@ extension KCPMainViewController: WKScriptMessageHandler {
         //java script로부터 들어오는 data 구현부
         //HTML파일에서 입력한 m_redirect_url을 WKWebView의 전역변수로 넘겨준다.
         //m_redirect_url외의 값도 받아올 수 있음
-        guard message.name == "iamportTest" else { return }
         
-        guard let dictionary: [String : String] = message.body as? Dictionary else { return }
-        if dictionary["m_redirect_url"] != nil {
-            mRedirectUrlValue = dictionary["m_redirect_url"]!
-        }
+        let contentController = WKUserContentController()
+        let config = WKWebViewConfiguration()
+        
+        contentController.add(self, name: "")
+
+    
     }
 }
 
@@ -110,10 +133,10 @@ extension KCPMainViewController: WKNavigationDelegate {
             for item in queryItems! {
                 print("[\(item.name) : \(item.value ?? "")]")
             }
-            
-            
-            
+     
             loadWebPage(url: "iamporttest://")
+            
+            //loadWebPage(url: url.absoluteString)
             
             return .cancel
         }
@@ -145,6 +168,7 @@ extension KCPMainViewController: WKNavigationDelegate {
         }
         
         print("webview에 요청된 url==> \(url.absoluteString)")
+
         return .allow
     }
     
