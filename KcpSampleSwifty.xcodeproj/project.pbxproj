@@ -21,6 +21,7 @@
 		B9F5EF2223C30FBF00783C3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9F5EF2023C30FBF00783C3D /* LaunchScreen.storyboard */; };
 		B9F5EF2D23C30FBF00783C3D /* testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F5EF2C23C30FBF00783C3D /* testTests.swift */; };
 		B9FA185A23F6427F001C242D /* InitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA185923F6427F001C242D /* InitViewController.swift */; };
+		B9FA185C23F67DC6001C242D /* EndPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA185B23F67DC6001C242D /* EndPageViewController.swift */; };
 		B9FD011123D7D7C0009CB868 /* SceneDelegate+IamportKcp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FD011023D7D7C0009CB868 /* SceneDelegate+IamportKcp.swift */; };
 		B9FD011323D7DA03009CB868 /* URL+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FD011223D7DA03009CB868 /* URL+extensions.swift */; };
 		B9FFA56223D7032B00A92F50 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FFA56123D7032B00A92F50 /* WebKit.framework */; };
@@ -61,6 +62,7 @@
 		B9F5EF2C23C30FBF00783C3D /* testTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTests.swift; sourceTree = "<group>"; };
 		B9F5EF3323C30FBF00783C3D /* KcpSampleSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KcpSampleSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9FA185923F6427F001C242D /* InitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitViewController.swift; sourceTree = "<group>"; };
+		B9FA185B23F67DC6001C242D /* EndPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPageViewController.swift; sourceTree = "<group>"; };
 		B9FA5E6D23D0440B002C69B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9FD011023D7D7C0009CB868 /* SceneDelegate+IamportKcp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+IamportKcp.swift"; sourceTree = "<group>"; };
 		B9FD011223D7DA03009CB868 /* URL+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+extensions.swift"; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				B9FD011223D7DA03009CB868 /* URL+extensions.swift */,
 				B9F5EF1B23C30FBD00783C3D /* Main.storyboard */,
 				B9FA185923F6427F001C242D /* InitViewController.swift */,
+				B9FA185B23F67DC6001C242D /* EndPageViewController.swift */,
 				B9F5EF1E23C30FBF00783C3D /* Assets.xcassets */,
 				B9F5EF2023C30FBF00783C3D /* LaunchScreen.storyboard */,
 				5172D46A23EA979E00F9F77C /* WebViewResources */,
@@ -306,6 +309,7 @@
 				B9FD011123D7D7C0009CB868 /* SceneDelegate+IamportKcp.swift in Sources */,
 				B9DCC96B23C46BA400769D8A /* AppDelegate+IamportKcp.swift in Sources */,
 				5172D47023EA9E9A00F9F77C /* KCPMainViewController+IamportKcp.swift in Sources */,
+				B9FA185C23F67DC6001C242D /* EndPageViewController.swift in Sources */,
 				B9FD011323D7DA03009CB868 /* URL+extensions.swift in Sources */,
 				B9F5EF1623C30FBD00783C3D /* AppDelegate.swift in Sources */,
 				B9FA185A23F6427F001C242D /* InitViewController.swift in Sources */,

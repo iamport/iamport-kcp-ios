@@ -62,11 +62,27 @@
                     <navigationItem key="navigationItem" id="5Fg-se-xBV"/>
                     <connections>
                         <outlet property="webView" destination="yhZ-uf-1zg" id="tQw-Ie-xm1"/>
+                        <segue destination="DBs-qr-Oya" kind="presentation" identifier="ToEndPage" modalPresentationStyle="fullScreen" id="qLO-04-h91"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1596" y="113"/>
+        </scene>
+        <!--End Page View Controller-->
+        <scene sceneID="DEv-Gh-5sY">
+            <objects>
+                <viewController id="DBs-qr-Oya" customClass="EndPageViewController" customModule="KcpSampleSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sou-Pn-DTQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Gn5-Bw-UPi"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="09R-d6-A5K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2636" y="118"/>
         </scene>
     </scenes>
 </document>

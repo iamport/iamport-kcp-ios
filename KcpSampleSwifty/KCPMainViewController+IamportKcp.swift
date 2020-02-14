@@ -9,6 +9,10 @@
 import Foundation
 import WebKit
 
+protocol SendData {
+    func SendData(list: [String : Any])
+}
+
 // MARK: - IAMPORT KCP Preparation
 extension KCPMainViewController {
 
@@ -120,12 +124,10 @@ extension KCPMainViewController: WKNavigationDelegate {
             let queryItems = queryComponents?.queryItems
             
             for item in queryItems! {
-                print("[\(item.name) : \(item.value ?? "")]")
+                listFromKcpMain[item.name] = item.value
             }
-     
-            loadWebPage(url: "iamporttest://")
-            
-            //loadWebPage(url: url.absoluteString)
+    
+            performSegue(withIdentifier: "ToEndPage", sender: self)
             
             return .cancel
         }
@@ -166,7 +168,14 @@ extension KCPMainViewController: WKNavigationDelegate {
 // MARK: - IAMPORT KCP ISP 앱 존재 여부 확인 후 미설치시 앱스토어를 열어줍니다.
 
 extension KCPMainViewController {
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToEndPage" {
+            let toEndPage = segue.destination as! EndPageViewController
+            toEndPage.endList = listFromKcpMain
+        }
+    }
+    
     func showAlertViewWithEvent(_ msg : String, tagNum tag : Int) {
         
         let alert : UIAlertController = UIAlertController(title: "알림", message: "_msg", preferredStyle: .alert)

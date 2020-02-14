@@ -19,8 +19,8 @@ class KCPMainViewController: UIViewController{
     //변경가능
     let yourHTMLName : String = "IamportTest"//.html
     
-    var listFromInputPage : [String: Any] = ["":""]
-    
+    var listFromInputPage = [String: Any]()
+    var listFromKcpMain = [String: Any]()
     
     var mRedirectUrlValue : String = ""
     
@@ -34,7 +34,6 @@ class KCPMainViewController: UIViewController{
         loadTestHtml(yourHTMLName)
         setupConfirmationMessageHandler()
         overrideUserAgent()
-        
         
     }
     
