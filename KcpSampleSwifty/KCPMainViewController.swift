@@ -10,28 +10,37 @@ import UIKit
 import WebKit
 
 
-class KCPMainViewController: UIViewController {
+class KCPMainViewController: UIViewController{
     
     @IBOutlet var webView: WKWebView!
 
-    //HTML로 부터온 m_redirect_url
-    var mRedirectUrlValue : String = ""
-    
     //변경가능
     let yourHTMLName : String = "IamportTest"//.html
     
+    //html문서의 subresource까지 모두 load되었는지를 didfinish에서 확인
+    var isLoaded : Bool = false
+    
+    var listFromInputPage = [String: Any]()
+    var listFromKcpMain = [String: Any]()
+    
+    var mRedirectUrlValue : String = ""
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
-        setupConfirmationMessageHandler()
-        loadTestHtml()
+        setEndNotification()
+        getRedirectURLFromInput()
+        setupMessageHandler(yourHTMLName)
         overrideUserAgent()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        loadHTML(yourHTMLName)
+    }
     
-
 }
+
+
 
 
 

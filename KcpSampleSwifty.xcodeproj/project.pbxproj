@@ -10,6 +10,7 @@
 		5172D46C23EA97B600F9F77C /* jquery-1.12.4.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 5172D46B23EA97B600F9F77C /* jquery-1.12.4.min.js */; };
 		5172D46E23EA98B800F9F77C /* IamportTest.html in Resources */ = {isa = PBXBuildFile; fileRef = 5172D46D23EA98B800F9F77C /* IamportTest.html */; };
 		5172D47023EA9E9A00F9F77C /* KCPMainViewController+IamportKcp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5172D46F23EA9E9A00F9F77C /* KCPMainViewController+IamportKcp.swift */; };
+		B96449AE23FA2BE000347246 /* InitViewController+IamportKcp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96449AD23FA2BE000347246 /* InitViewController+IamportKcp.swift */; };
 		B9AF106823EBF47500BC043A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B9AF106723EBF47500BC043A /* README.md */; };
 		B9D60D5123CDBBA40093A693 /* testUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D60D5023CDBBA40093A693 /* testUITests.swift */; };
 		B9DCC96B23C46BA400769D8A /* AppDelegate+IamportKcp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DCC96A23C46BA400769D8A /* AppDelegate+IamportKcp.swift */; };
@@ -20,6 +21,8 @@
 		B9F5EF1F23C30FBF00783C3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9F5EF1E23C30FBF00783C3D /* Assets.xcassets */; };
 		B9F5EF2223C30FBF00783C3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9F5EF2023C30FBF00783C3D /* LaunchScreen.storyboard */; };
 		B9F5EF2D23C30FBF00783C3D /* testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F5EF2C23C30FBF00783C3D /* testTests.swift */; };
+		B9FA185A23F6427F001C242D /* InitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA185923F6427F001C242D /* InitViewController.swift */; };
+		B9FA185C23F67DC6001C242D /* EndPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA185B23F67DC6001C242D /* EndPageViewController.swift */; };
 		B9FD011123D7D7C0009CB868 /* SceneDelegate+IamportKcp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FD011023D7D7C0009CB868 /* SceneDelegate+IamportKcp.swift */; };
 		B9FD011323D7DA03009CB868 /* URL+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FD011223D7DA03009CB868 /* URL+extensions.swift */; };
 		B9FFA56223D7032B00A92F50 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FFA56123D7032B00A92F50 /* WebKit.framework */; };
@@ -46,6 +49,7 @@
 		5172D46B23EA97B600F9F77C /* jquery-1.12.4.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-1.12.4.min.js"; sourceTree = "<group>"; };
 		5172D46D23EA98B800F9F77C /* IamportTest.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = IamportTest.html; sourceTree = "<group>"; };
 		5172D46F23EA9E9A00F9F77C /* KCPMainViewController+IamportKcp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KCPMainViewController+IamportKcp.swift"; sourceTree = "<group>"; };
+		B96449AD23FA2BE000347246 /* InitViewController+IamportKcp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InitViewController+IamportKcp.swift"; sourceTree = "<group>"; };
 		B9AF106723EBF47500BC043A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		B9D60D5023CDBBA40093A693 /* testUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = testUITests.swift; sourceTree = "<group>"; };
 		B9DCC96A23C46BA400769D8A /* AppDelegate+IamportKcp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+IamportKcp.swift"; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 		B9F5EF2823C30FBF00783C3D /* KcpSampleSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KcpSampleSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9F5EF2C23C30FBF00783C3D /* testTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTests.swift; sourceTree = "<group>"; };
 		B9F5EF3323C30FBF00783C3D /* KcpSampleSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KcpSampleSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9FA185923F6427F001C242D /* InitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitViewController.swift; sourceTree = "<group>"; };
+		B9FA185B23F67DC6001C242D /* EndPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPageViewController.swift; sourceTree = "<group>"; };
 		B9FA5E6D23D0440B002C69B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9FD011023D7D7C0009CB868 /* SceneDelegate+IamportKcp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+IamportKcp.swift"; sourceTree = "<group>"; };
 		B9FD011223D7DA03009CB868 /* URL+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+extensions.swift"; sourceTree = "<group>"; };
@@ -128,12 +134,15 @@
 				B9DCC96A23C46BA400769D8A /* AppDelegate+IamportKcp.swift */,
 				B9F5EF1723C30FBD00783C3D /* SceneDelegate.swift */,
 				B9FD011023D7D7C0009CB868 /* SceneDelegate+IamportKcp.swift */,
+				B9FA185923F6427F001C242D /* InitViewController.swift */,
+				B96449AD23FA2BE000347246 /* InitViewController+IamportKcp.swift */,
 				B9F5EF1923C30FBD00783C3D /* KCPMainViewController.swift */,
 				5172D46F23EA9E9A00F9F77C /* KCPMainViewController+IamportKcp.swift */,
+				B9FA185B23F67DC6001C242D /* EndPageViewController.swift */,
 				B9FD011223D7DA03009CB868 /* URL+extensions.swift */,
 				B9F5EF1B23C30FBD00783C3D /* Main.storyboard */,
-				B9F5EF1E23C30FBF00783C3D /* Assets.xcassets */,
 				B9F5EF2023C30FBF00783C3D /* LaunchScreen.storyboard */,
+				B9F5EF1E23C30FBF00783C3D /* Assets.xcassets */,
 				5172D46A23EA979E00F9F77C /* WebViewResources */,
 				B9FA5E6D23D0440B002C69B4 /* Info.plist */,
 				B9AF106723EBF47500BC043A /* README.md */,
@@ -303,8 +312,11 @@
 				B9FD011123D7D7C0009CB868 /* SceneDelegate+IamportKcp.swift in Sources */,
 				B9DCC96B23C46BA400769D8A /* AppDelegate+IamportKcp.swift in Sources */,
 				5172D47023EA9E9A00F9F77C /* KCPMainViewController+IamportKcp.swift in Sources */,
+				B9FA185C23F67DC6001C242D /* EndPageViewController.swift in Sources */,
 				B9FD011323D7DA03009CB868 /* URL+extensions.swift in Sources */,
 				B9F5EF1623C30FBD00783C3D /* AppDelegate.swift in Sources */,
+				B9FA185A23F6427F001C242D /* InitViewController.swift in Sources */,
+				B96449AE23FA2BE000347246 /* InitViewController+IamportKcp.swift in Sources */,
 				B9F5EF1823C30FBD00783C3D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
