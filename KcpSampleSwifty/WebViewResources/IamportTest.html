@@ -6,21 +6,43 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Pay document</title>
     <script type="text/javascript" src="jquery-1.12.4.min.js" ></script>
-    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+    
 </head>
 <body>
     <script type="text/javascript">
-    
-        var IMP = window.IMP;
-<!--        자세한 사항은 https://docs.iamport.kr/implementation/payment 확인해주세요.-->
-<!--        Iamport dashboard의 고유 가맹점 식별코드입니다.-->
-        IMP.init("imp40289144");
-
+        
+        var jsLoaded = false;
+        var jsontmp = "";
+        
         function request_pay(json) {
-            IMP.request_pay(json),function(rsp){};
+            if (!jsLoaded) {
+                setTimeout("check()",3000);
+                jsontmp = json
+            } else {
+                <!-- 자세한 사항은 https://docs.iamport.kr/implementation/payment 확인해주세요.-->
+                <!-- Iamport dashboard의 고유 가맹점 식별코드입니다.-->
+                clearTimeout()
+                var IMP = window.IMP;
+                IMP.init("imp40289144");
+                IMP.request_pay(json),function(rsp){};
+            }
+        }
+    
+        function check(){
+            if(!jsLoaded) {
+                alert("아임포트 서버에 접속할 수 없습니다.");
+                window.webkit.messageHandlers.iamportTest.postMessage("exit");
+            } else {
+                <!-- 자세한 사항은 https://docs.iamport.kr/implementation/payment 확인해주세요.-->
+                <!-- Iamport dashboard의 고유 가맹점 식별코드입니다.-->
+                clearTimeout()
+                var IMP = window.IMP;
+                IMP.init("imp40289144");
+                IMP.request_pay(jsontmp),function(rsp){};
+            }
         }
     </script>
- 
+    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.8.js" onload = "jsLoaded=true"></script>
 </body>
 </html>
 

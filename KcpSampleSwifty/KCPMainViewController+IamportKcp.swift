@@ -15,10 +15,10 @@ extension KCPMainViewController {
     
     //webview와 javascript 통신을 위해 setup
     func setupMessageHandler(_ yourHTMLName: String) {
-        let config = WKWebViewConfiguration()
-               let contentController = WKUserContentController()
-               config.userContentController = contentController
-               
+            let config = WKWebViewConfiguration()
+            let contentController = WKUserContentController()
+            config.userContentController = contentController
+            contentController.add(self, name: "iamportTest")
                self.webView = WKWebView(frame: .zero, configuration: config)
                view = webView
 
@@ -84,7 +84,11 @@ extension KCPMainViewController: WKScriptMessageHandler {
 
         if message.name == "iamportTest" {
             
-            
+            if let msg = message.body as? String {
+                if msg == "exit" {
+                    exit(0)
+                }
+            }
         }
     }
 }
