@@ -20,7 +20,6 @@ extension KCPMainViewController {
     func setupConfirmationMessageHandler() {
         // Native(HTML) -> WKWebView로 데이터를 전달하기 위함
         let contentController = WKUserContentController()
-        contentController.add(self, name: "iamportTest")
         
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = contentController
@@ -36,6 +35,7 @@ extension KCPMainViewController {
         let config = WKWebViewConfiguration()
         let userScript = WKUserScript(source: inputFromSwift, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         let contentController = WKUserContentController()
+        contentController.add(self, name: "iamportTest")
         contentController.addUserScript(userScript)
         config.userContentController = contentController
         
@@ -44,10 +44,6 @@ extension KCPMainViewController {
 
         self.webView.navigationDelegate = self
         self.webView.uiDelegate = self
-
-        let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
-        let myRequest = URLRequest(url: htmlResourceUrl)  // RENAME
-        self.webView.load(myRequest)
         
     }
     
@@ -87,8 +83,11 @@ extension KCPMainViewController: WKScriptMessageHandler {
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         //java script로부터 들어오는 data 구현부
-        //HTML파일에서 입력한 m_redirect_url을 WKWebView의 전역변수로 넘겨준다.
-        //m_redirect_url외의 값도 받아올 수 있음
+
+        if message.name == "iamportTest" {
+            
+            
+        }
     }
 }
 
@@ -127,6 +126,7 @@ extension KCPMainViewController: WKNavigationDelegate {
                 listFromKcpMain[item.name] = item.value
             }
     
+            NotificationCenter.default.post(name: Notification.Name("isOver"), object: nil)
             performSegue(withIdentifier: "ToEndPage", sender: self)
             
             return .cancel

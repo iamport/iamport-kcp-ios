@@ -14,22 +14,12 @@
         var IMP = window.IMP; //자세한 사항은 https://docs.iamport.kr/implementation/payment 확인해주세요.
         IMP.init("imp40289144"); // Iamport dashboard의 고유 가맹점 식별코드입니다.
         
-        function request_pay(json) {
-            IMP.request_pay(json),function(rsp){};
-        }
         
-        function objectifyForm(formArray) {
-            var returnArray = {};
-            for (var i = 0; i < formArray.length; i++){
-                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            function request_pay(json) {
+                IMP.request_pay(json),function(rsp){};
             }
-            return returnArray;
-        }
-    
-        function send_result(){
-            window.webkit.messageHandlers.iamportTest.postMessage(objectifyForm(myForm));
-        }
-
+        
+        
     </script>
  
 </body>

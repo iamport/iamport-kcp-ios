@@ -26,20 +26,25 @@ class KCPMainViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(loadFirstPage(_:)), name: Notification.Name("isOver"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(endWebView(_:)), name: Notification.Name("isOver"), object: nil)
         mRedirectUrlValue = listFromInputPage["m_redirect_url"] as! String
         loadTestHtml(yourHTMLName)
-        setupConfirmationMessageHandler()
+        //setupConfirmationMessageHandler()
         overrideUserAgent()
         
     }
     
-    @objc func loadFirstPage(_ notification: Notification){
-        //처음 앱으로 돌아가는것 TODO
-        loadTestHtml("IamportTest")
+    override func viewWillAppear(_ animated: Bool) {
+        let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
+        let myRequest = URLRequest(url: htmlResourceUrl)  // RENAME
+        self.webView.load(myRequest)
+    }
+    
+    @objc func endWebView(_ notification: Notification){
+        self.webView.stopLoading()
+        self.webView.removeFromSuperview()
+        self.webView.navigationDelegate = nil
+        self.webView = nil
     }
 }
 
