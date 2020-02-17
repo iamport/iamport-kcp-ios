@@ -32,12 +32,5 @@ class InitViewController : UIViewController  {
         performSegue(withIdentifier: "ToWebView", sender: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ToWebView" {
-            let toKCPMain = segue.destination as! KCPMainViewController
-            toKCPMain.listFromInputPage = list
-        }
-    }
-    
 }
 

@@ -9,26 +9,11 @@
 import Foundation
 import WebKit
 
-protocol SendData {
-    func SendData(list: [String : Any])
-}
-
-// MARK: - IAMPORT KCP Preparation
+// MARK: - IAMPORT KCP 기본 세팅 함수들
 extension KCPMainViewController {
 
-    // confirmation이란? m_redirect_url을 비교 후 WKWebView가 종료됨을 뜻한다.
-    func setupConfirmationMessageHandler() {
-        // Native(HTML) -> WKWebView로 데이터를 전달하기 위함
-        let contentController = WKUserContentController()
-        
-        let configuration = WKWebViewConfiguration()
-        configuration.userContentController = contentController
-        
-        self.webView = WKWebView(frame: self.view.frame, configuration: configuration)
-        self.view.addSubview(self.webView)
-    }
-    
-    func loadTestHtml(_ yourHTMLName: String) {
+    //webview와 javascript 통신을 위해 setup
+    func setupMessageHandler(_ yourHTMLName: String) {
         
         let inputFromSwift = "request_pay(\(listFromInputPage.jsonStringRepresentation!))"
 
@@ -58,23 +43,47 @@ extension KCPMainViewController {
         }
     }
     
-
-    func loadWebPage(url: String) {
-        
-        let myUrl = URL(string: url)
-        let request = URLRequest(url: myUrl!)
-        self.webView.load(request)
+    func setEndNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(endWebView(_:)), name: Notification.Name("isOver"), object: nil)
+    }
+    
+    func getRedirectURLFromInput() {
+        mRedirectUrlValue = listFromInputPage["m_redirect_url"] as! String
     }
     
 }
-extension Dictionary {
-    var jsonStringRepresentation: String? {
-        guard let theJSONData = try? JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted]) else {
-            return nil
-        }
 
-        return String(data: theJSONData, encoding: .utf8)
+// MARK: - IAMPORT KCP 실행함수들
+
+extension KCPMainViewController {
+    
+    @objc func endWebView(_ notification: Notification){
+        self.webView.stopLoading()
+        self.webView.removeFromSuperview()
+        self.webView.navigationDelegate = nil
+        self.webView = nil
     }
+    
+    //segue 변경용
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ToEndPage" {
+            let toEndPage = segue.destination as! EndPageViewController
+            toEndPage.endList = listFromKcpMain
+        }
+    }
+    
+    func loadWebPage(url: String) {
+          
+          let myUrl = URL(string: url)
+          let request = URLRequest(url: myUrl!)
+          self.webView.load(request)
+      }
+    
+    func loadHTML(_ yourHTMLName: String) {
+          let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
+          let myRequest = URLRequest(url: htmlResourceUrl)  // RENAME
+          self.webView.load(myRequest)
+      }
 }
 
 // MARK: - IAMPORT KCP HTML Form 입력값을 WKWebView로 값을 전달하기 위한 Message Handler
@@ -88,112 +97,6 @@ extension KCPMainViewController: WKScriptMessageHandler {
             
             
         }
-    }
-}
-
-// MARK: - IAMPORT KCP ISP체크와 WKWebView에 들어오는 URL Request를 처리
-
-extension KCPMainViewController: WKNavigationDelegate {
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        
-        guard let url = navigationAction.request.url else { return }
-        
-        decisionHandler(
-            self.navigationPolicyBasedOnUrlScheme(url: url))
-    }
-    
-    // decisionHandler 중복호출을 피하기위해 closure 작성하여 policy를 도출
-    func navigationPolicyBasedOnUrlScheme(url: URL) -> WKNavigationActionPolicy {
-        
-        //HTML로 실행했을 시 실행할 파일 URL Scheme(file:// )에 대한 권한부여
-        if url.isFileURL {
-            
-            print("webview에 요청된 url==> \(url.absoluteString)")
-            return .allow
-            
-        }
-        
-        //HTML로 부터 받아온 요청한 m_redirect_url과 비교 후 같을 시 WKWebView를 종료하고 Query값을 이용가능함!
-        if url.isOver(mRedirectUrlValue) {
-            
-            print("webview에 요청된 url==> \(url.absoluteString)")
-            
-            let queryComponents = URLComponents(string: url.absoluteString)
-            let queryItems = queryComponents?.queryItems
-            
-            for item in queryItems! {
-                listFromKcpMain[item.name] = item.value
-            }
-    
-            NotificationCenter.default.post(name: Notification.Name("isOver"), object: nil)
-            performSegue(withIdentifier: "ToEndPage", sender: self)
-            
-            return .cancel
-        }
-        
-        //APP STORE URL 경우 앱스토어 어플을 활성화
-        if url.isAppStoreUrl {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil) 
-            return .cancel
-        }
-        
-        // URL scheme이 ISP를 요구 시 App존재여부 확인 후 Open&Download
-        if url.needsIspAuthentication {
-            let appURL = URL(string: url.absoluteString)
-            if UIApplication.shared.canOpenURL(appURL!) {
-                UIApplication.shared.open(appURL!, options: [:], completionHandler: nil)
-                print("webview에 요청된 url==> \(url.absoluteString)")
-                return .allow
-            } else {
-                self.showAlertViewWithEvent("모바일 ISP가 설치되어 있지 않아 \n App Store로 이동합니다.", tagNum: 99)
-                return .cancel
-            }
-        }
-    
-        //기타(금결원 실시간계좌이체 등) http & https scheme이 들어왔을 경우 URL을 Open하기 위함
-        if !url.isHttpOrHttps {
-            print("webview에 요청된 url==> \(url.absoluteString)")
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            return .cancel
-        }
-        
-        print("webview에 요청된 url==> \(url.absoluteString)")
-
-        return .allow
-    }
-    
-}
-
-// MARK: - IAMPORT KCP ISP 앱 존재 여부 확인 후 미설치시 앱스토어를 열어줍니다.
-
-extension KCPMainViewController {
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ToEndPage" {
-            let toEndPage = segue.destination as! EndPageViewController
-            toEndPage.endList = listFromKcpMain
-        }
-    }
-    
-    func showAlertViewWithEvent(_ msg : String, tagNum tag : Int) {
-        
-        let alert : UIAlertController = UIAlertController(title: "알림", message: "_msg", preferredStyle: .alert)
-        
-        alert.view.tag = tag
-        
-        let okAction = UIAlertAction(title :"확인",style: .default, handler: {
-            ACTION in
-            if alert.view.tag == 99 {
-              let URLstring : String = "https://itunes.apple.com/app/mobail-gyeolje-isp/id369125087?mt=8"
-                let storeURL : URL = URL(string: URLstring)!
-                UIApplication.shared.open(storeURL, options: [:], completionHandler: nil)
-            }
-        })
-        
-        alert.addAction(okAction)
-        alert.present(alert, animated: true, completion: nil)
-        
     }
 }
 
@@ -233,7 +136,81 @@ extension KCPMainViewController: WKUIDelegate {
     
 }
 
-// MARK: - IAMPORT KCP ISP 체크용 URL
+// MARK: - IAMPORT KCP ISP체크와 WKWebView에 들어오는 URL Request를 처리
+
+extension KCPMainViewController: WKNavigationDelegate {
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        guard let url = navigationAction.request.url else { return }
+        
+        decisionHandler(
+            self.navigationPolicyBasedOnUrlScheme(url: url))
+    }
+    
+    // decisionHandler 중복호출을 피하기위해 closure 작성하여 policy를 도출
+    func navigationPolicyBasedOnUrlScheme(url: URL) -> WKNavigationActionPolicy {
+        
+        //HTML로 실행했을 시 실행할 파일 URL Scheme(file:// )에 대한 권한부여
+        if url.isFileURL {
+            
+            print("webview에 요청된 url==> \(url.absoluteString)")
+            return .allow
+            
+        }
+        
+        //HTML로 부터 받아온 요청한 m_redirect_url과 비교 후 같을 시 WKWebView를 종료하고 Query값을 이용가능함!
+        if url.isOver(mRedirectUrlValue) {
+            
+            print("webview에 요청된 url==> \(url.absoluteString)")
+            
+            let queryComponents = URLComponents(string: url.absoluteString)
+            let queryItems = queryComponents?.queryItems
+            
+            for item in queryItems! {
+                listFromKcpMain[item.name] = item.value
+            }
+    
+            performSegue(withIdentifier: "ToEndPage", sender: self)
+            NotificationCenter.default.post(name: Notification.Name("isOver"), object: nil)
+            
+            return .cancel
+        }
+        
+        //APP STORE URL 경우 앱스토어 어플을 활성화
+        if url.isAppStoreUrl {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            return .cancel
+        }
+        
+        // URL scheme이 ISP를 요구 시 App존재여부 확인 후 Open&Download
+        if url.needsIspAuthentication {
+            let appURL = URL(string: url.absoluteString)
+            if UIApplication.shared.canOpenURL(appURL!) {
+                UIApplication.shared.open(appURL!, options: [:], completionHandler: nil)
+                print("webview에 요청된 url==> \(url.absoluteString)")
+                return .allow
+            } else {
+                url.showAlertViewWithEvent("모바일 ISP가 설치되어 있지 않아 \n App Store로 이동합니다.", tagNum: 99)
+                return .cancel
+            }
+        }
+    
+        //기타(금결원 실시간계좌이체 등)
+        if !url.isHttpOrHttps {
+            print("webview에 요청된 url==> \(url.absoluteString)")
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            return .cancel
+        }
+        
+        print("webview에 요청된 url==> \(url.absoluteString)")
+
+        return .allow
+    }
+    
+}
+
+// MARK: - IAMPORT KCP ISP체크용 URL Extension
 extension URL {
     
     var needsIspAuthentication: Bool {
@@ -272,10 +249,44 @@ extension URL {
         }
     }
     
+    func showAlertViewWithEvent(_ msg : String, tagNum tag : Int) {
+           
+           let alert : UIAlertController = UIAlertController(title: "알림", message: "_msg", preferredStyle: .alert)
+           
+           alert.view.tag = tag
+           
+           let okAction = UIAlertAction(title :"확인",style: .default, handler: {
+               ACTION in
+               if alert.view.tag == 99 {
+                 let URLstring : String = "https://itunes.apple.com/app/mobail-gyeolje-isp/id369125087?mt=8"
+                   let storeURL : URL = URL(string: URLstring)!
+                   UIApplication.shared.open(storeURL, options: [:], completionHandler: nil)
+               }
+           })
+           
+           alert.addAction(okAction)
+           alert.present(alert, animated: true, completion: nil)
+       }
+}
+
+// MARK: - IAMPORT KCP 진행사항 체크용 URL Extension
+extension URL {
+    
     func isOver(_ mRedirectUrlValue : String) -> Bool {
         return self.absoluteString.hasPrefix(mRedirectUrlValue) && mRedirectUrlValue != ""
     }
     
+}
+
+// MARK: - Dictionary -> JSON
+extension Dictionary {
+    var jsonStringRepresentation: String? {
+        guard let theJSONData = try? JSONSerialization.data(withJSONObject: self, options: [.prettyPrinted]) else {
+            return nil
+        }
+
+        return String(data: theJSONData, encoding: .utf8)
+    }
 }
 
 
