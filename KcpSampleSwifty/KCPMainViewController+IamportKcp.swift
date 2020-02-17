@@ -73,12 +73,6 @@ extension KCPMainViewController {
           let request = URLRequest(url: myUrl!)
           self.webView.load(request)
       }
-    
-    func loadHTML(_ yourHTMLName: String) {
-          let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
-          let myRequest = URLRequest(url: htmlResourceUrl)  // RENAME
-          self.webView.load(myRequest)
-      }
 }
 
 // MARK: - IAMPORT KCP HTML Form 입력값을 WKWebView로 값을 전달하기 위한 Message Handler
@@ -203,16 +197,23 @@ extension KCPMainViewController: WKNavigationDelegate {
         return .allow
     }
     
-    //html의 subresource까지 load완료 되었는지를 확인
+    //이 샘플에서 jQuery는 내장되어 외부URL로서 실행하지 않지만 다른 resource들을 받아올 때 생길 수 있는 문제들
+    //그 중, script Tag의 실행 확증을 위해 WKNavigationDelegate의 didFinish옵션을 사용
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if self.isLoaded == false
         {
             let inputFromSwift = "request_pay(\(listFromInputPage.jsonStringRepresentation!))"
-            print("aa")
             self.isLoaded = true
             self.webView.evaluateJavaScript(inputFromSwift, completionHandler: nil)
             
         }
+    }
+    
+    func loadHTML(_ yourHTMLName: String) {
+        //현재는 내장된 html을 사용하지만 url을 이용해서 load할 시 생기는 문제해결을 위해 cache를 사용하고 timeout 10초로 설정
+        let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
+        let request: URLRequest = URLRequest.init(url: htmlResourceUrl, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10)
+        self.webView.load(request)
     }
     
 }
