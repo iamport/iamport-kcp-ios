@@ -17,6 +17,9 @@ class KCPMainViewController: UIViewController{
     //변경가능
     let yourHTMLName : String = "IamportTest"//.html
     
+    //html문서의 subresource까지 모두 load되었는지를 didfinish에서 확인
+    var isLoaded : Bool = false
+    
     var listFromInputPage = [String: Any]()
     var listFromKcpMain = [String: Any]()
     

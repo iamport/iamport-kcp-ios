@@ -12,23 +12,18 @@ import WebKit
 // MARK: - IAMPORT KCP 기본 세팅 함수들
 extension KCPMainViewController {
 
+    
     //webview와 javascript 통신을 위해 setup
     func setupMessageHandler(_ yourHTMLName: String) {
-        
-        let inputFromSwift = "request_pay(\(listFromInputPage.jsonStringRepresentation!))"
-
         let config = WKWebViewConfiguration()
-        let userScript = WKUserScript(source: inputFromSwift, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-        let contentController = WKUserContentController()
-        contentController.add(self, name: "iamportTest")
-        contentController.addUserScript(userScript)
-        config.userContentController = contentController
-        
-        webView = WKWebView(frame: .zero, configuration: config)
-        view = webView
+               let contentController = WKUserContentController()
+               config.userContentController = contentController
+               
+               self.webView = WKWebView(frame: .zero, configuration: config)
+               view = webView
 
-        self.webView.navigationDelegate = self
-        self.webView.uiDelegate = self
+               self.webView.navigationDelegate = self
+               self.webView.uiDelegate = self
         
     }
     
@@ -206,6 +201,18 @@ extension KCPMainViewController: WKNavigationDelegate {
         print("webview에 요청된 url==> \(url.absoluteString)")
 
         return .allow
+    }
+    
+    //html의 subresource까지 load완료 되었는지를 확인
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if self.isLoaded == false
+        {
+            let inputFromSwift = "request_pay(\(listFromInputPage.jsonStringRepresentation!))"
+            print("aa")
+            self.isLoaded = true
+            self.webView.evaluateJavaScript(inputFromSwift, completionHandler: nil)
+            
+        }
     }
     
 }
