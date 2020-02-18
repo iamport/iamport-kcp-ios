@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Init View Controller-->
+        <!--Payment Request Input View Controller-->
         <scene sceneID="3oh-aT-V8k">
             <objects>
-                <viewController id="7SU-aR-qyx" customClass="InitViewController" customModule="KcpSampleSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7SU-aR-qyx" customClass="PaymentRequestInputViewController" customModule="KcpSampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="glh-cO-3UT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -276,7 +276,7 @@
                                             <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="sendJSON:" destination="7SU-aR-qyx" eventType="touchUpInside" id="ssM-ej-kDS"/>
+                                            <action selector="transitionToWebViewController:" destination="7SU-aR-qyx" eventType="touchUpInside" id="ssM-ej-kDS"/>
                                             <segue destination="BYZ-38-t0r" kind="presentation" identifier="ToWebView" modalPresentationStyle="fullScreen" id="CCi-ph-Ydl"/>
                                         </connections>
                                     </button>
@@ -325,10 +325,10 @@
             </objects>
             <point key="canvasLocation" x="598.55072463768124" y="112.5"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Kcp Web View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="KCPMainViewController" customModule="KcpSampleSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="KcpWebViewController" customModule="KcpSampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -361,10 +361,10 @@
             </objects>
             <point key="canvasLocation" x="1825" y="402"/>
         </scene>
-        <!--End Page View Controller-->
+        <!--Payment Result View Controller-->
         <scene sceneID="DEv-Gh-5sY">
             <objects>
-                <viewController id="DBs-qr-Oya" customClass="EndPageViewController" customModule="KcpSampleSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="DBs-qr-Oya" customClass="PaymentResultViewController" customModule="KcpSampleSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sou-Pn-DTQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

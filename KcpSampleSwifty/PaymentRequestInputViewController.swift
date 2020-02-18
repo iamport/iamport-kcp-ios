@@ -9,7 +9,8 @@
 import UIKit
 
 
-class InitViewController : UIViewController{
+
+class PaymentRequestInputViewController : UIViewController {
     
     @IBOutlet weak var pg: UITextField!
     @IBOutlet weak var payMethod: UITextField!
@@ -30,15 +31,16 @@ class InitViewController : UIViewController{
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        setBasicInput()
         
+        self.setLoadedViewState()
     }
     
-    @IBAction func sendJSON(_ sender: UIButton) {
+    @IBAction func transitionToWebViewController(_ sender: UIButton) {
+        //segue를 이용해서 WKWebView를 사용하는 ViewContoller로 이동
         performSegue(withIdentifier: "ToWebView", sender: self)
     }
     
-    func setBasicInput() {
+    func setLoadedViewState() {
         self.pg.text = "kcp"
         self.payMethod.text = "card"
         self.merchantUid.text = "ORD20202020 -00000127"

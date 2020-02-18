@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EndPageViewController : UIViewController {
+class PaymentResultViewController : UIViewController {
     
     @IBOutlet weak var title1: UILabel!
     @IBOutlet weak var title2: UILabel!

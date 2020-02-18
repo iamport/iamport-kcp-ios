@@ -1,5 +1,5 @@
 //
-//  KCPMainViewController+IamportKcp.swift
+//  KcpWebViewController+IamportKcp.swift
 //  KcpSampleSwift
 //
 //  Created by Andy Park on 2020/02/05.
@@ -9,8 +9,9 @@
 import Foundation
 import WebKit
 
-// MARK: - IAMPORT KCP 기본 세팅 함수들
-extension KCPMainViewController {
+// MARK: - IAMPORT KCP WebView 실행 전 선행되어야할 초기화 함수들입니다.
+
+extension KcpWebViewController {
 
     
     //webview와 javascript 통신을 위해 setup
@@ -48,10 +49,11 @@ extension KCPMainViewController {
     
 }
 
-// MARK: - IAMPORT KCP 실행함수들
+// MARK: - IAMPORT KCP WebView에서 특정상황에 대해 트리거 됩니다.
 
-extension KCPMainViewController {
+extension KcpWebViewController {
     
+    //webView 종료 Notification 시 실행됩니다.
     @objc func endWebView(_ notification: Notification){
         self.webView.stopLoading()
         self.webView.removeFromSuperview()
@@ -61,10 +63,10 @@ extension KCPMainViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    //segue 변경용
+    //segue 변경할 때 list값을 전달해줍니다.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ToEndPage" {
-            let toEndPage = segue.destination as! EndPageViewController
+            let toEndPage = segue.destination as! PaymentResultViewController
             toEndPage.endList = listFromKcpMain
         }
     }
@@ -77,9 +79,9 @@ extension KCPMainViewController {
       }
 }
 
-// MARK: - IAMPORT KCP HTML Form 입력값을 WKWebView로 값을 전달하기 위한 Message Handler
+// MARK: - IAMPORT KCP HTML의 치명적 오류(iamport server latency error etc..)시 종료됩니다.
 
-extension KCPMainViewController: WKScriptMessageHandler {
+extension KcpWebViewController: WKScriptMessageHandler {
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         //java script로부터 들어오는 data 구현부
@@ -88,7 +90,7 @@ extension KCPMainViewController: WKScriptMessageHandler {
             
             if let msg = message.body as? String {
                 if msg == "exit" {
-                    exit(0)
+                    fatalError("아임포트 서버에서 iamport.payment.js 를 받을 수 없습니다.")
                 }
             }
         }
@@ -96,7 +98,8 @@ extension KCPMainViewController: WKScriptMessageHandler {
 }
 
 // MARK: - IAMPORT KCP 최종 등록 완료 웹페이지, 결제 오류 페이지에서 alert(), confilm() 함수에 대한 처리
-extension KCPMainViewController: WKUIDelegate {
+
+extension KcpWebViewController: WKUIDelegate {
     
     //최종 등록이 완료되는 웹페이지에서 alert() confirm() 함수에 대한 처리
     func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
@@ -133,7 +136,7 @@ extension KCPMainViewController: WKUIDelegate {
 
 // MARK: - IAMPORT KCP ISP체크와 WKWebView에 들어오는 URL Request를 처리
 
-extension KCPMainViewController: WKNavigationDelegate {
+extension KcpWebViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
@@ -154,7 +157,7 @@ extension KCPMainViewController: WKNavigationDelegate {
             
         }
         
-        //HTML로 부터 받아온 요청한 m_redirect_url과 비교 후 같을 시 WKWebView를 종료하고 Query값을 이용가능함!
+        //HTML로 부터 받아온 요청한 m_redirect_url과 비교 후 같을 시 WKWebView를 종료하고 Query값을 PaymentResultViewController에 전달
         if url.isOver(mRedirectUrlValue) {
             
             print("webview에 요청된 url==> \(url.absoluteString)")
@@ -205,7 +208,7 @@ extension KCPMainViewController: WKNavigationDelegate {
     
     //이 샘플에서 jQuery는 내장되어 외부URL로서 실행하지 않지만 다른 resource들을 받아올 때 생길 수 있는 문제들
     //그 중, script Tag의 실행 확증을 위해 WKNavigationDelegate의 didFinish옵션을 사용
-    //이 옵션은 subresource의 실행완료를 보장할 순 있지만 timeout을 보장할 수 없어서 html코드에 기제
+    //이 옵션은 subresource의 실행완료를 보장할 순 있지만 timeout을 보장할 수 없어서 그에 대한 옵션은 html코드에 기제
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if self.isLoaded == false
         {
@@ -214,13 +217,6 @@ extension KCPMainViewController: WKNavigationDelegate {
             self.webView.evaluateJavaScript(inputFromSwift, completionHandler: nil)
             
         }
-    }
-    
-    func loadHTML(_ yourHTMLName: String) {
-        //현재는 내장된 html을 사용하지만 url을 이용해서 load할 시 생기는 문제해결을 위해 cache를 사용하고 timeout 10초로 설정
-        let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
-        let request: URLRequest = URLRequest.init(url: htmlResourceUrl, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10)
-        self.webView.load(request)
     }
     
 }

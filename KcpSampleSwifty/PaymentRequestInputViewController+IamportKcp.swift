@@ -10,15 +10,15 @@ import UIKit
 
 // MARK: - segue 변경 시 list를 다른 ViewController에 전달
 
-extension InitViewController {
+extension PaymentRequestInputViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         getListFromInput()
         
         if segue.identifier == "ToWebView" {
-            let toKCPMain = segue.destination as! KCPMainViewController
-            toKCPMain.listFromInputPage = listFromInput
+            let toKCPMain = segue.destination as! KcpWebViewController
+            toKCPMain.listFromInputPage = self.listFromInput
         }
     }
     
