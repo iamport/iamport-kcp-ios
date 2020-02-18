@@ -19,11 +19,11 @@ extension KCPMainViewController {
             let contentController = WKUserContentController()
             config.userContentController = contentController
             contentController.add(self, name: "iamportTest")
-               self.webView = WKWebView(frame: .zero, configuration: config)
-               view = webView
+            self.webView = WKWebView(frame: .zero, configuration: config)
+            view = webView
 
-               self.webView.navigationDelegate = self
-               self.webView.uiDelegate = self
+            self.webView.navigationDelegate = self
+            self.webView.uiDelegate = self
         
     }
     
@@ -56,7 +56,9 @@ extension KCPMainViewController {
         self.webView.stopLoading()
         self.webView.removeFromSuperview()
         self.webView.navigationDelegate = nil
+        self.webView.uiDelegate = nil
         self.webView = nil
+        NotificationCenter.default.removeObserver(self)
     }
     
     //segue 변경용

@@ -19,7 +19,6 @@ extension InitViewController {
         if segue.identifier == "ToWebView" {
             let toKCPMain = segue.destination as! KCPMainViewController
             toKCPMain.listFromInputPage = listFromInput
-            print(toKCPMain.listFromInputPage)
         }
     }
     
