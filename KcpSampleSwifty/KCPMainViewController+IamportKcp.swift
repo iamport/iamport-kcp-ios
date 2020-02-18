@@ -203,6 +203,7 @@ extension KCPMainViewController: WKNavigationDelegate {
     
     //이 샘플에서 jQuery는 내장되어 외부URL로서 실행하지 않지만 다른 resource들을 받아올 때 생길 수 있는 문제들
     //그 중, script Tag의 실행 확증을 위해 WKNavigationDelegate의 didFinish옵션을 사용
+    //이 옵션은 subresource의 실행완료를 보장할 순 있지만 timeout을 보장할 수 없어서 html코드에 기제
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         if self.isLoaded == false
         {

@@ -29,12 +29,12 @@ class KCPMainViewController: UIViewController{
         super.viewDidLoad()
         
         setEndNotification()
-        getRedirectURLFromInput()
         setupMessageHandler(yourHTMLName)
         overrideUserAgent()
         
     }
     override func viewWillAppear(_ animated: Bool) {
+        getRedirectURLFromInput()
         loadHTML(yourHTMLName)
     }
     

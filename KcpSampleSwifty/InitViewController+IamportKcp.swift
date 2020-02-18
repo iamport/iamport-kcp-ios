@@ -13,10 +13,32 @@ import UIKit
 extension InitViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        getListFromInput()
+        
         if segue.identifier == "ToWebView" {
             let toKCPMain = segue.destination as! KCPMainViewController
-            toKCPMain.listFromInputPage = list
+            toKCPMain.listFromInputPage = listFromInput
+            print(toKCPMain.listFromInputPage)
         }
+    }
+    
+    func getListFromInput() {
+        
+        self.listFromInput["pg"] = self.pg.text
+        self.listFromInput["pay_method"] = self.payMethod.text
+        self.listFromInput["merchant_uid"] = self.merchantUid.text
+        self.listFromInput["name"] = self.name.text
+        self.listFromInput["amount"] = self.amount.text
+        self.listFromInput["buyer_email"] = self.buyerEmail.text
+        self.listFromInput["buyer_name"] = self.buyerName.text
+        self.listFromInput["buyer_tel"] = self.buyerTel.text
+        self.listFromInput["buyer_addr"] = self.buyerAddr.text
+        self.listFromInput["buyer_postcode"] = self.buyerPostCode.text
+        self.listFromInput["vbank_due"] = self.vbankDue.text
+        self.listFromInput["app_scheme"] = self.appScheme.text
+        self.listFromInput["m_redirect_url"] = self.mRedirectUrl.text
+
     }
     
 }
