@@ -90,7 +90,7 @@ extension KcpWebViewController: WKScriptMessageHandler {
             
             if let msg = message.body as? String {
                 if msg == "exit" {
-                    fatalError("아임포트 서버에서 iamport.payment.js 를 받을 수 없습니다.")
+                    fatalError("아임포트 서버에서 iamport.payment.js를 실행할 수 없습니다.")
                 }
             }
         }

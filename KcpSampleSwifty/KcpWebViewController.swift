@@ -53,7 +53,7 @@ class KcpWebViewController: UIViewController{
         let htmlResourceUrl = Bundle.main.url(forResource: yourHTMLName, withExtension: "html")!
         let timeoutInterval = 1
         
-        // url을 이용해서 load할 시에는 cache를 사용하고 html이 도착하지 않았을 경우를 대비하여 timeout에 여유를 두는걸 권합니다.
+        // url을 이용해서 load할 시에는 cache를 사용하고 html이 도착하지 않았을 경우를 대비하여 timeout에 여유를 두는걸 권장합니다.
         // let timeoutInterval = 10
         
         let request: URLRequest = URLRequest.init(url: htmlResourceUrl, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: TimeInterval(timeoutInterval))

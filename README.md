@@ -2,6 +2,9 @@
 
 Swift 언어로 작성된 KCP 결제연동 샘플입니다.
 
+이 샘플은 App(native) ->WKWebView -> App(native)의 시나리오로 동작합니다.
+이해를 돕기위해 3개의 ViewController로 동작하며 결제프로세스가 진행되는 동안만 WKWebView가 동작하게 됩니다.  
+
 아임포트 결제연동은 [[아임포트 결제연동 매뉴얼]](https://docs.iamport.kr/)을 참고해 주시기 바랍니다.
 
 ## 아임포트 라이브러리 추가하기 
@@ -19,8 +22,9 @@ Swift 언어로 작성된 KCP 결제연동 샘플입니다.
 ~~~
 ~~~
     var IMP = window.IMP; //자세한 사항은 https://docs.iamport.kr/implementation/payment 확인해주세요.
-    IMP.init("imp11111111"); // Iamport dashboard의 고유 가맹점 식별코드를 확인하여 변경해야 합니다.
+    IMP.init("imp________"); // Iamport dashboard의 고유 가맹점 식별코드를 확인하여 변경해야 합니다.
 ~~~
+
 ## ISP인증확인
 
     •	비씨카드
@@ -38,11 +42,12 @@ Swift 언어로 작성된 KCP 결제연동 샘플입니다.
 	◦	KB국민카드
 	◦	카카오뱅크 카카오프렌즈 체크카드 - KB국민카드의 망을 이용한다.
 
-위의 카드 이용 시 ISP체크를 위한 외부 앱 이동 후 인증은 서버 외부단에서 동작하며,
-ISP 인증에 대한 여부는 입력한 APP_Scheme으로 확인이 가능합니다. 외부 앱 이동 후 복귀를 위해 *info.plist*의 URL Scheme값에 값을 지정해준 app_scheme을 등록해주십시오.
+위의 카드 이용 시 ISP체크를 위해 외부 앱으로 이동 후 인증은 서버 외부단에서 동작하며,
+ISP 인증에 대한 여부는 입력한 APP_Scheme으로 확인이 가능합니다. 외부 앱 이동 후 복귀를 위해 *info.plist*의 URL Scheme값에 app_scheme을 등록해주십시오.
 
 ## 결제 이 후
 **모바일**의 경우 웹과는 다르게 Java script의 call back함수로 동작하지 않습니다. 그래서 설정한 m_redirect_url에 추가적인 정보가 Query로 붙어 동작하게 됩니다.
 
     http://www.redirected.com/?u_id=1&m_id=2...
-필요한 정보가 있다면 이를 받은 서버에서 parsing해 사용하시면 됩니다.
+    
+이 샘플은 앱으로 다시 돌아오게 설정되어 있기 때문에 redirect url에 대해서 별도로 처리되어야합니다.   
